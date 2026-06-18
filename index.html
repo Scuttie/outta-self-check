@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>나와 세상을 정의하기 — 자가진단</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --id-50:#E6E9FF;--id-100:#DAE0FE;--id-150:#C9D2FF;--id-200:#B5C1FE;
+  --id-500:#3345D3;--id-600:#2331B1;--id-700:#16218E;--id-800:#0D1576;
+  --ink:#1F2025;--muted:#5B5F6E;--hint:#9498A6;
+  --line:#ECEEF4;--line-2:#D7DBE6;--bg:#FFFFFF;--surface:#F6F7FC;
+  --orange:#B0432A;--orange-bg:#FBEEE9;
+  --green:#1F6B4F;--green-bg:#E7F2EC;
+  --radius:14px;--radius-sm:9px;
+  --font:"Pretendard Variable","Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--font);color:var(--ink);background:var(--surface);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:780px;margin:0 auto;padding:0 20px 96px}
+
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line);}
+.topbar-in{max-width:780px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;letter-spacing:.01em;font-size:15px}
+.brand svg{display:block}
+.brand .sep{width:1px;height:16px;background:var(--line-2);margin:0 2px}
+.brand .ctx{font-weight:500;color:var(--muted);font-size:13px}
+.progress{margin-left:auto;display:flex;align-items:center;gap:10px;min-width:0}
+.bar{width:120px;height:7px;border-radius:99px;background:var(--id-50);overflow:hidden;flex:0 0 auto}
+.bar-fill{height:100%;width:0;background:var(--id-500);transition:width .25s ease}
+.pcount{font-size:13px;font-weight:600;color:var(--id-700);white-space:nowrap}
+
+.hero{position:relative;overflow:hidden;border-radius:var(--radius);background:var(--id-500);color:#fff;padding:38px 34px 34px;margin:26px 0 8px}
+.hero h1{margin:0;font-size:34px;line-height:1.18;font-weight:700;letter-spacing:-.01em;position:relative;z-index:2}
+.hero p{margin:14px 0 0;font-size:15px;color:var(--id-150);position:relative;z-index:2;max-width:46ch}
+.shards{position:absolute;inset:0;z-index:1;pointer-events:none}
+
+.lead{font-size:14px;color:var(--muted);margin:20px 2px 4px}
+.legend{display:flex;flex-wrap:wrap;gap:7px;margin:12px 2px 0}
+
+.sec{margin:36px 0 4px}
+.sec-h{display:flex;align-items:center;gap:11px}
+.sec-n{width:30px;height:30px;border-radius:9px;background:var(--id-50);color:var(--id-700);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex:0 0 auto}
+.sec-t{margin:0;font-size:21px;font-weight:700;letter-spacing:-.01em}
+.sec-d{margin:8px 0 0 41px;font-size:14px;color:var(--hint)}
+.grp{font-size:13px;font-weight:600;color:var(--muted);margin:26px 0 2px}
+
+.q{padding:16px 0;border-top:1px solid var(--line)}
+.q-top{display:flex;align-items:baseline;gap:9px;margin-bottom:11px}
+.q-l{font-size:16px;line-height:1.5;flex:1;font-weight:500}
+.qnote{color:var(--hint);font-weight:400;font-size:14px}
+.tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:7px;white-space:nowrap;flex:0 0 auto}
+.tag-mc{background:var(--surface);color:var(--muted);border:1px solid var(--line-2)}
+.tag-multi{background:var(--id-50);color:var(--id-700)}
+.tag-short{background:var(--green-bg);color:var(--green)}
+.tag-long{background:var(--orange-bg);color:var(--orange)}
+
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{font-family:inherit;font-size:14px;padding:9px 16px;border-radius:var(--radius-sm);border:1px solid var(--line-2);background:#fff;color:var(--ink);cursor:pointer;transition:border-color .12s,background .12s,color .12s;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.opt:hover{border-color:var(--id-200);background:var(--id-50)}
+.opt.sel{background:var(--id-500);border-color:var(--id-500);color:#fff;font-weight:600}
+
+.txt{font-family:inherit;width:100%;font-size:15px;color:var(--ink);background:#fff;border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:11px 13px;outline:none;transition:border-color .12s,box-shadow .12s}
+.txt:focus{border-color:var(--id-500);box-shadow:0 0 0 3px rgba(51,69,211,.14)}
+textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
+
+.foot{margin-top:38px;padding-top:24px;border-top:1px solid var(--line-2)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font-family:inherit;font-size:14px;font-weight:600;padding:11px 20px;border-radius:var(--radius-sm);border:1px solid var(--line-2);background:#fff;color:var(--ink);cursor:pointer;transition:background .12s,border-color .12s}
+.btn:hover{background:var(--surface);border-color:var(--id-200)}
+.btn-primary{background:var(--id-500);border-color:var(--id-500);color:#fff}
+.btn-primary:hover{background:var(--id-600);border-color:var(--id-600)}
+.btn-ghost{border-color:transparent;color:var(--muted)}
+.btn-ghost:hover{background:var(--surface);border-color:transparent}
+.foot-hint{font-size:13px;color:var(--hint);margin:14px 2px 0}
+.savedtag{font-size:12px;color:var(--green);font-weight:600;opacity:0;transition:opacity .2s;margin-left:2px}
+.savedtag.on{opacity:1}
+.out{width:100%;margin-top:16px;min-height:240px;font-size:13px;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;display:none;border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:12px;background:#fff}
+
+@media (max-width:560px){
+  .topbar-in{padding:10px 16px;gap:10px}
+  .brand .ctx,.brand .sep{display:none}
+  .bar{width:78px}
+  .wrap{padding:0 16px 80px}
+  .hero{padding:30px 22px 26px;margin-top:20px}
+  .hero h1{font-size:27px}
+  .sec-t{font-size:19px}
+  .q-l{font-size:15px}
+}
+
+@media print{
+  body{background:#fff}
+  .topbar{position:static;border:none;background:#fff}
+  .progress,.actions,.foot-hint,.out,.savedtag{display:none !important}
+  .hero{background:#fff;color:var(--ink);border:1px solid var(--line-2);padding:24px}
+  .hero h1{color:var(--ink)}.hero p{color:var(--muted)}.shards{display:none}
+  .q,.sec{break-inside:avoid}
+  .opt{border:1px solid var(--line-2)}
+  .opt.sel{background:var(--id-500) !important;color:#fff !important;border-color:var(--id-500) !important}
+  .txt{min-height:48px}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-in"><span class="brand"><svg width="22" height="22" viewBox="0 0 40 40" aria-hidden="true"><polygon points="4,36 20,4 20,20" fill="#3345D3"/><polygon points="20,36 36,4 36,20" fill="#3345D3"/></svg>OUTTA<span class="sep"></span><span class="ctx">자가진단</span></span><span class="progress"><span class="bar"><span class="bar-fill" id="bar-fill"></span></span><span class="pcount" id="pcount">0 / 35</span></span></div></div>
+<div class="wrap">
+<div class="hero"><svg class="shards" viewBox="0 0 780 220" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"><polygon points="560,0 700,0 560,140" fill="#ffffff" opacity="0.06"/><polygon points="640,40 780,40 780,220 640,220" fill="#ffffff" opacity="0.05"/><polygon points="700,0 740,0 700,80" fill="#ffffff" opacity="0.08"/></svg><h1>나와 세상을<br>정의하기</h1><p>AI는 능력을 확장한다. 무엇을·왜 정의할지는 여전히 나의 몫이다. 천천히, 떠오르는 대로 답해보자.</p></div>
+<p class="lead">클릭해서 고르고, 단답·장답은 직접 적으면 돼. 정답은 없어. 입력하면 이 브라우저에 자동 저장돼.</p>
+<div class="legend"><span class="tag tag-mc">객관식</span><span class="tag tag-multi">복수선택</span><span class="tag tag-short">단답</span><span class="tag tag-long">장답</span></div>
+<section class="sec"><div class="sec-h"><span class="sec-n">0</span><h2 class="sec-t">인생 전반 훑어보기</h2></div><p class="sec-d">멀리서 내 삶 전체를 한 번 내려다보기.</p></section>
+<div class="q" data-id="q1" data-type="mc" data-sec="인생 전반 훑어보기" data-grp="" data-q="지금 내 인생의 계절은?"><div class="q-top"><span class="q-l">지금 내 인생의 계절은?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="봄 · 막 시작">봄 · 막 시작</button><button type="button" class="opt" data-v="여름 · 한창">여름 · 한창</button><button type="button" class="opt" data-v="가을 · 수확·정리">가을 · 수확·정리</button><button type="button" class="opt" data-v="겨울 · 멈춤·재정비">겨울 · 멈춤·재정비</button></div></div>
+<div class="q" data-id="q2" data-type="mc" data-sec="인생 전반 훑어보기" data-grp="" data-q="요즘 내 에너지가 가장 많이 향하는 곳은?"><div class="q-top"><span class="q-l">요즘 내 에너지가 가장 많이 향하는 곳은?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="성장·배움">성장·배움</button><button type="button" class="opt" data-v="성취·증명">성취·증명</button><button type="button" class="opt" data-v="관계·연결">관계·연결</button><button type="button" class="opt" data-v="안정·회복">안정·회복</button></div></div>
+<div class="q" data-id="q3" data-type="short" data-sec="인생 전반 훑어보기" data-grp="" data-q="지금까지의 내 인생을 한 문장으로 요약하면?"><div class="q-top"><span class="q-l">지금까지의 내 인생을 한 문장으로 요약하면?</span><span class="tag tag-short">단답</span></div><input class="txt" type="text" placeholder="예: 부딪히면서 길을 찾아온 시간"></div>
+<div class="q" data-id="q4" data-type="multi" data-sec="인생 전반 훑어보기" data-grp="" data-q="내 인생의 전환점이 된 경험은?"><div class="q-top"><span class="q-l">내 인생의 전환점이 된 경험은?</span><span class="tag tag-multi">복수선택</span></div><div class="opts" data-multi="true"><button type="button" class="opt" data-v="큰 실패">큰 실패</button><button type="button" class="opt" data-v="우연한 만남">우연한 만남</button><button type="button" class="opt" data-v="환경 변화(이사·유학 등)">환경 변화(이사·유학 등)</button><button type="button" class="opt" data-v="큰 성취·합격">큰 성취·합격</button><button type="button" class="opt" data-v="상실·이별">상실·이별</button><button type="button" class="opt" data-v="새로운 배움">새로운 배움</button></div></div>
+<div class="q" data-id="q5" data-type="long" data-sec="인생 전반 훑어보기" data-grp="" data-q="10년 전의 나와 지금의 나, 가장 크게 달라진 점은?"><div class="q-top"><span class="q-l">10년 전의 나와 지금의 나, 가장 크게 달라진 점은?</span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder="무엇이, 왜 달라졌는지 자유롭게"></textarea></div>
+<div class="q" data-id="q6" data-type="mc" data-sec="인생 전반 훑어보기" data-grp="" data-q="5년 뒤를 떠올리면 드는 감정은?"><div class="q-top"><span class="q-l">5년 뒤를 떠올리면 드는 감정은?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="설렘">설렘</button><button type="button" class="opt" data-v="막막함">막막함</button><button type="button" class="opt" data-v="담담함">담담함</button><button type="button" class="opt" data-v="기대 반 걱정 반">기대 반 걱정 반</button></div></div>
+<div class="q" data-id="q7" data-type="long" data-sec="인생 전반 훑어보기" data-grp="" data-q="나는 어떤 사람으로 기억되고 싶은가?"><div class="q-top"><span class="q-l">나는 어떤 사람으로 기억되고 싶은가? <span class="qnote">(한 줄 평 / 묘비명)</span></span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder="한 문장으로"></textarea></div>
+<section class="sec"><div class="sec-h"><span class="sec-n">1</span><h2 class="sec-t">‘나’를 정의하기</h2></div><p class="sec-d">AI가 대신 답해줄 수 없는, 나만의 기준점.</p></section>
+<p class="grp">가치관 — 무엇을 ‘좋다’고 보는가</p>
+<div class="q" data-id="q8" data-type="mc" data-sec="‘나’를 정의하기" data-grp="가치관 — 무엇을 ‘좋다’고 보는가" data-q="일·프로젝트에서 가장 우선하는 가치는?"><div class="q-top"><span class="q-l">일·프로젝트에서 가장 우선하는 가치는?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="정확성">정확성</button><button type="button" class="opt" data-v="효율">효율</button><button type="button" class="opt" data-v="공정성">공정성</button><button type="button" class="opt" data-v="새로움">새로움</button><button type="button" class="opt" data-v="안정성">안정성</button><button type="button" class="opt" data-v="영향력">영향력</button></div></div>
+<div class="q" data-id="q9" data-type="mc" data-sec="‘나’를 정의하기" data-grp="가치관 — 무엇을 ‘좋다’고 보는가" data-q="남들이 다 괜찮다 해도 내가 못 넘기는 건?"><div class="q-top"><span class="q-l">남들이 다 괜찮다 해도 내가 못 넘기는 건?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="부정직">부정직</button><button type="button" class="opt" data-v="비효율">비효율</button><button type="button" class="opt" data-v="불공정">불공정</button><button type="button" class="opt" data-v="지루함">지루함</button><button type="button" class="opt" data-v="무책임">무책임</button></div></div>
+<div class="q" data-id="q10" data-type="long" data-sec="‘나’를 정의하기" data-grp="가치관 — 무엇을 ‘좋다’고 보는가" data-q="절대 타협하고 싶지 않은 한 가지와 그 이유는?"><div class="q-top"><span class="q-l">절대 타협하고 싶지 않은 한 가지와 그 이유는?</span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder="무엇을, 왜"></textarea></div>
+<p class="grp">관심·끌림 — 무엇에 시간을 쓰게 되는가</p>
+<div class="q" data-id="q11" data-type="short" data-sec="‘나’를 정의하기" data-grp="관심·끌림 — 무엇에 시간을 쓰게 되는가" data-q="시간 가는 줄 모르고 파고드는 주제는?"><div class="q-top"><span class="q-l">시간 가는 줄 모르고 파고드는 주제는?</span><span class="tag tag-short">단답</span></div><input class="txt" type="text" placeholder=""></div>
+<div class="q" data-id="q12" data-type="multi" data-sec="‘나’를 정의하기" data-grp="관심·끌림 — 무엇에 시간을 쓰게 되는가" data-q="시키지 않아도 자꾸 찾아보게 되는 분야는?"><div class="q-top"><span class="q-l">시키지 않아도 자꾸 찾아보게 되는 분야는?</span><span class="tag tag-multi">복수선택</span></div><div class="opts" data-multi="true"><button type="button" class="opt" data-v="기술·코딩">기술·코딩</button><button type="button" class="opt" data-v="사람·심리">사람·심리</button><button type="button" class="opt" data-v="비즈니스·돈">비즈니스·돈</button><button type="button" class="opt" data-v="예술·디자인">예술·디자인</button><button type="button" class="opt" data-v="사회·정치">사회·정치</button><button type="button" class="opt" data-v="과학·자연">과학·자연</button></div></div>
+<div class="q" data-id="q13" data-type="mc" data-sec="‘나’를 정의하기" data-grp="관심·끌림 — 무엇에 시간을 쓰게 되는가" data-q="어떤 문제를 보면 ‘내가 풀어보고 싶다’고 느끼나?"><div class="q-top"><span class="q-l">어떤 문제를 보면 ‘내가 풀어보고 싶다’고 느끼나?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="비효율적인 것">비효율적인 것</button><button type="button" class="opt" data-v="불공정한 것">불공정한 것</button><button type="button" class="opt" data-v="아무도 안 푼 것">아무도 안 푼 것</button><button type="button" class="opt" data-v="아름답게 만들 수 있는 것">아름답게 만들 수 있는 것</button><button type="button" class="opt" data-v="사람을 돕는 것">사람을 돕는 것</button></div></div>
+<p class="grp">경험 — 나만 아는 디테일은 무엇인가</p>
+<div class="q" data-id="q14" data-type="short" data-sec="‘나’를 정의하기" data-grp="경험 — 나만 아는 디테일은 무엇인가" data-q="남보다 많이 겪어본 현장·상황은?"><div class="q-top"><span class="q-l">남보다 많이 겪어본 현장·상황은?</span><span class="tag tag-short">단답</span></div><input class="txt" type="text" placeholder=""></div>
+<div class="q" data-id="q15" data-type="long" data-sec="‘나’를 정의하기" data-grp="경험 — 나만 아는 디테일은 무엇인가" data-q="실패하거나 고생하며 배운, 책에 없는 감각 하나는?"><div class="q-top"><span class="q-l">실패하거나 고생하며 배운, 책에 없는 감각 하나는?</span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder=""></textarea></div>
+<p class="grp">목표·방향 — 어디로 가려 하는가</p>
+<div class="q" data-id="q16" data-type="mc" data-sec="‘나’를 정의하기" data-grp="목표·방향 — 어디로 가려 하는가" data-q="나에게 ‘성공’에 가장 가까운 건?"><div class="q-top"><span class="q-l">나에게 ‘성공’에 가장 가까운 건?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="자유">자유</button><button type="button" class="opt" data-v="영향력">영향력</button><button type="button" class="opt" data-v="인정">인정</button><button type="button" class="opt" data-v="성장">성장</button><button type="button" class="opt" data-v="안정">안정</button><button type="button" class="opt" data-v="돈">돈</button></div></div>
+<div class="q" data-id="q17" data-type="short" data-sec="‘나’를 정의하기" data-grp="목표·방향 — 어디로 가려 하는가" data-q="5년 뒤 다루고 있고 싶은 문제·분야는?"><div class="q-top"><span class="q-l">5년 뒤 다루고 있고 싶은 문제·분야는?</span><span class="tag tag-short">단답</span></div><input class="txt" type="text" placeholder=""></div>
+<div class="q" data-id="q18" data-type="long" data-sec="‘나’를 정의하기" data-grp="목표·방향 — 어디로 가려 하는가" data-q="세상에 남기고 싶은 작은 변화 하나는?"><div class="q-top"><span class="q-l">세상에 남기고 싶은 작은 변화 하나는?</span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder=""></textarea></div>
+<p class="grp">책임·관점 — 누구의 입장에서 보는가</p>
+<div class="q" data-id="q19" data-type="mc" data-sec="‘나’를 정의하기" data-grp="책임·관점 — 누구의 입장에서 보는가" data-q="결정할 때 누구의 입장을 가장 먼저 보나?"><div class="q-top"><span class="q-l">결정할 때 누구의 입장을 가장 먼저 보나?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="나 자신">나 자신</button><button type="button" class="opt" data-v="가까운 사람">가까운 사람</button><button type="button" class="opt" data-v="사용자·고객">사용자·고객</button><button type="button" class="opt" data-v="사회 전체">사회 전체</button><button type="button" class="opt" data-v="미래 세대">미래 세대</button></div></div>
+<div class="q" data-id="q20" data-type="mc" data-sec="‘나’를 정의하기" data-grp="책임·관점 — 누구의 입장에서 보는가" data-q="내가 가장 빠지기 쉬운 편향은?"><div class="q-top"><span class="q-l">내가 가장 빠지기 쉬운 편향은?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="내 경험 일반화">내 경험 일반화</button><button type="button" class="opt" data-v="숫자 맹신">숫자 맹신</button><button type="button" class="opt" data-v="다수 의견 추종">다수 의견 추종</button><button type="button" class="opt" data-v="새것 선호">새것 선호</button><button type="button" class="opt" data-v="익숙한 것 고수">익숙한 것 고수</button></div></div>
+<section class="sec"><div class="sec-h"><span class="sec-n">2</span><h2 class="sec-t">‘나를 둘러싼 세상’을 정의하기</h2></div><p class="sec-d">지금 관심 있는 문제·프로젝트 하나를 떠올리며 답해봐.</p></section>
+<p class="grp">문제·도메인 — 진짜 문제는 뭔가</p>
+<div class="q" data-id="q21" data-type="short" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="문제·도메인 — 진짜 문제는 뭔가" data-q="떠올린 ‘내 문제’를 한 문장으로?"><div class="q-top"><span class="q-l">떠올린 ‘내 문제’를 한 문장으로?</span><span class="tag tag-short">단답</span></div><input class="txt" type="text" placeholder=""></div>
+<div class="q" data-id="q22" data-type="mc" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="문제·도메인 — 진짜 문제는 뭔가" data-q="이 문제의 성격은?"><div class="q-top"><span class="q-l">이 문제의 성격은?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="효율 개선">효율 개선</button><button type="button" class="opt" data-v="새로운 발견">새로운 발견</button><button type="button" class="opt" data-v="의사결정 지원">의사결정 지원</button><button type="button" class="opt" data-v="자동화">자동화</button><button type="button" class="opt" data-v="경험 개선">경험 개선</button></div></div>
+<div class="q" data-id="q23" data-type="long" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="문제·도메인 — 진짜 문제는 뭔가" data-q="표면 증상 말고 ‘진짜 문제’는 뭐라고 생각하나?"><div class="q-top"><span class="q-l">표면 증상 말고 ‘진짜 문제’는 뭐라고 생각하나?</span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder=""></textarea></div>
+<div class="q" data-id="q24" data-type="mc" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="문제·도메인 — 진짜 문제는 뭔가" data-q="이게 아직 안 풀린 가장 큰 이유는?"><div class="q-top"><span class="q-l">이게 아직 안 풀린 가장 큰 이유는?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="데이터 부족">데이터 부족</button><button type="button" class="opt" data-v="기술 한계">기술 한계</button><button type="button" class="opt" data-v="비용">비용</button><button type="button" class="opt" data-v="관심 부족">관심 부족</button><button type="button" class="opt" data-v="이해관계 충돌">이해관계 충돌</button><button type="button" class="opt" data-v="정의가 모호">정의가 모호</button></div></div>
+<p class="grp">데이터·자료 — 무엇을 알고, 무엇을 모르나</p>
+<div class="q" data-id="q25" data-type="multi" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="데이터·자료 — 무엇을 알고, 무엇을 모르나" data-q="가졌거나 구할 수 있는 데이터는?"><div class="q-top"><span class="q-l">가졌거나 구할 수 있는 데이터는?</span><span class="tag tag-multi">복수선택</span></div><div class="opts" data-multi="true"><button type="button" class="opt" data-v="수치·로그">수치·로그</button><button type="button" class="opt" data-v="텍스트">텍스트</button><button type="button" class="opt" data-v="이미지·영상">이미지·영상</button><button type="button" class="opt" data-v="설문·인터뷰">설문·인터뷰</button><button type="button" class="opt" data-v="공개 데이터셋">공개 데이터셋</button><button type="button" class="opt" data-v="없음">없음</button></div></div>
+<div class="q" data-id="q26" data-type="long" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="데이터·자료 — 무엇을 알고, 무엇을 모르나" data-q="그 데이터에 ‘빠져 있는 것’(안 보이는 것)은?"><div class="q-top"><span class="q-l">그 데이터에 ‘빠져 있는 것’(안 보이는 것)은?</span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder=""></textarea></div>
+<p class="grp">이해관계자 — 누구를 위한 결과인가</p>
+<div class="q" data-id="q27" data-type="short" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="이해관계자 — 누구를 위한 결과인가" data-q="이 결과를 실제로 쓰는 사람은 누구?"><div class="q-top"><span class="q-l">이 결과를 실제로 쓰는 사람은 누구?</span><span class="tag tag-short">단답</span></div><input class="txt" type="text" placeholder=""></div>
+<div class="q" data-id="q28" data-type="mc" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="이해관계자 — 누구를 위한 결과인가" data-q="결정하는 사람과 쓰는 사람이 같나?"><div class="q-top"><span class="q-l">결정하는 사람과 쓰는 사람이 같나?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="같음">같음</button><button type="button" class="opt" data-v="다름">다름</button><button type="button" class="opt" data-v="여럿이 얽힘">여럿이 얽힘</button><button type="button" class="opt" data-v="모르겠음">모르겠음</button></div></div>
+<div class="q" data-id="q29" data-type="long" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="이해관계자 — 누구를 위한 결과인가" data-q="내가 빠뜨리기 쉬운 당사자는 누구일까?"><div class="q-top"><span class="q-l">내가 빠뜨리기 쉬운 당사자는 누구일까?</span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder=""></textarea></div>
+<p class="grp">맥락 — 어떤 배경 위에 있나</p>
+<div class="q" data-id="q30" data-type="mc" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="맥락 — 어떤 배경 위에 있나" data-q="시간이 지나면 이 문제는?"><div class="q-top"><span class="q-l">시간이 지나면 이 문제는?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="더 심각해짐">더 심각해짐</button><button type="button" class="opt" data-v="자연히 해소됨">자연히 해소됨</button><button type="button" class="opt" data-v="형태가 바뀜">형태가 바뀜</button><button type="button" class="opt" data-v="그대로">그대로</button></div></div>
+<p class="grp">제약·경계 — 어디까지 하고 어디서 멈추나</p>
+<div class="q" data-id="q31" data-type="multi" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="제약·경계 — 어디까지 하고 어디서 멈추나" data-q="가장 빡빡한 제약은?"><div class="q-top"><span class="q-l">가장 빡빡한 제약은?</span><span class="tag tag-multi">복수선택</span></div><div class="opts" data-multi="true"><button type="button" class="opt" data-v="시간">시간</button><button type="button" class="opt" data-v="비용">비용</button><button type="button" class="opt" data-v="인력">인력</button><button type="button" class="opt" data-v="데이터">데이터</button><button type="button" class="opt" data-v="기술">기술</button><button type="button" class="opt" data-v="법·윤리">법·윤리</button></div></div>
+<div class="q" data-id="q32" data-type="long" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="제약·경계 — 어디까지 하고 어디서 멈추나" data-q="‘이것까지는 안 한다’의 경계선은?"><div class="q-top"><span class="q-l">‘이것까지는 안 한다’의 경계선은?</span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder=""></textarea></div>
+<div class="q" data-id="q33" data-type="short" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="제약·경계 — 어디까지 하고 어디서 멈추나" data-q="깔고 있는 핵심 가정 하나는?"><div class="q-top"><span class="q-l">깔고 있는 핵심 가정 하나는? <span class="qnote">(틀리면 무너지는)</span></span><span class="tag tag-short">단답</span></div><input class="txt" type="text" placeholder=""></div>
+<p class="grp">성공 기준 — 무엇을 보면 됐다고 할까</p>
+<div class="q" data-id="q34" data-type="short" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="성공 기준 — 무엇을 보면 됐다고 할까" data-q="‘성공’을 측정 가능한 형태로 쓰면?"><div class="q-top"><span class="q-l">‘성공’을 측정 가능한 형태로 쓰면?</span><span class="tag tag-short">단답</span></div><input class="txt" type="text" placeholder="예: 신규 고객 이탈 7일 내 30%↓"></div>
+<div class="q" data-id="q35" data-type="mc" data-sec="‘나를 둘러싼 세상’을 정의하기" data-grp="성공 기준 — 무엇을 보면 됐다고 할까" data-q="어느 정도면 ‘충분히 좋다’인가?"><div class="q-top"><span class="q-l">어느 정도면 ‘충분히 좋다’인가?</span><span class="tag tag-mc">객관식</span></div><div class="opts" data-multi="false"><button type="button" class="opt" data-v="완벽해야">완벽해야</button><button type="button" class="opt" data-v="기존보다 나으면">기존보다 나으면</button><button type="button" class="opt" data-v="일단 동작하면">일단 동작하면</button><button type="button" class="opt" data-v="사람이 신뢰하면">사람이 신뢰하면</button></div></div>
+<div class="foot"><div class="actions"><button type="button" class="btn btn-primary" id="copyBtn">답변 복사</button><button type="button" class="btn" id="dlBtn">텍스트로 저장 (.txt)</button><button type="button" class="btn" id="printBtn" onclick="window.print()">인쇄 / PDF</button><button type="button" class="btn btn-ghost" id="resetBtn">초기화</button><span class="savedtag" id="saved">저장됨</span></div><p class="foot-hint">다 채우지 않아도 돼 — 지금까지 적은 것만 모여. 복사/저장 버튼으로 가져갈 수 있어.</p><textarea class="out" id="out" readonly></textarea></div>
+</div>
+<script>
+(function(){
+  var KEY='outta_selfcheck_v1';
+  var qs=document.querySelectorAll('.q');
+  var saveTimer=null;
+
+  function answerOf(q){
+    if(q.dataset.type==='mc'||q.dataset.type==='multi'){
+      return Array.prototype.map.call(q.querySelectorAll('.opt.sel'),function(b){return b.dataset.v;});
+    }
+    var f=q.querySelector('.txt'); return f?f.value:'';
+  }
+  function setAnswer(q,val){
+    if(q.dataset.type==='mc'||q.dataset.type==='multi'){
+      var set={}; (val||[]).forEach(function(v){set[v]=1;});
+      q.querySelectorAll('.opt').forEach(function(b){ if(set[b.dataset.v]) b.classList.add('sel'); });
+    } else {
+      var f=q.querySelector('.txt'); if(f) f.value=(val||'');
+    }
+  }
+  function isAnswered(q){
+    if(q.dataset.type==='mc'||q.dataset.type==='multi') return !!q.querySelector('.opt.sel');
+    var f=q.querySelector('.txt'); return !!(f&&f.value.trim());
+  }
+  function updateProgress(){
+    var done=0; qs.forEach(function(q){ if(isAnswered(q)) done++; });
+    var pct=Math.round(done/qs.length*100);
+    document.getElementById('bar-fill').style.width=pct+'%';
+    document.getElementById('pcount').textContent=done+' / '+qs.length;
+  }
+  function flashSaved(){
+    var t=document.getElementById('saved'); if(!t) return;
+    t.classList.add('on'); clearTimeout(t._h); t._h=setTimeout(function(){t.classList.remove('on');},1100);
+  }
+  function save(){
+    try{
+      var data={}; qs.forEach(function(q){ data[q.dataset.id]=answerOf(q); });
+      localStorage.setItem(KEY,JSON.stringify(data)); flashSaved();
+    }catch(e){}
+  }
+  function scheduleSave(){ clearTimeout(saveTimer); saveTimer=setTimeout(save,400); }
+  function load(){
+    try{
+      var raw=localStorage.getItem(KEY); if(!raw) return;
+      var data=JSON.parse(raw);
+      qs.forEach(function(q){ if(data[q.dataset.id]!==undefined) setAnswer(q,data[q.dataset.id]); });
+    }catch(e){}
+  }
+
+  qs.forEach(function(q){
+    var opts=q.querySelector('.opts');
+    if(opts){
+      var multi=opts.dataset.multi==='true';
+      opts.querySelectorAll('.opt').forEach(function(b){
+        b.addEventListener('click',function(){
+          if(multi){ b.classList.toggle('sel'); }
+          else { opts.querySelectorAll('.opt').forEach(function(x){x.classList.remove('sel');}); b.classList.add('sel'); }
+          updateProgress(); save();
+        });
+      });
+    }
+    var f=q.querySelector('.txt');
+    if(f) f.addEventListener('input',function(){ updateProgress(); scheduleSave(); });
+  });
+
+  function compile(){
+    var lines=[],curSec='',curGrp='';
+    lines.push('나와 세상을 정의하기 — 자가진단');
+    lines.push('('+new Date().toLocaleDateString('ko-KR')+')');
+    qs.forEach(function(q){
+      var sec=q.dataset.sec||'',grp=q.dataset.grp||'';
+      if(sec!==curSec){ curSec=sec; curGrp=''; lines.push(''); lines.push('━━ '+sec+' ━━'); }
+      if(grp&&grp!==curGrp){ curGrp=grp; lines.push(''); lines.push('['+grp+']'); }
+      var a=answerOf(q),ans=Array.isArray(a)?a.join(', '):(a||'').trim();
+      lines.push('Q. '+q.dataset.q);
+      lines.push('→ '+(ans||'(미응답)'));
+    });
+    return lines.join('\n');
+  }
+
+  document.getElementById('copyBtn').addEventListener('click',function(){
+    var text=compile(),out=document.getElementById('out'),btn=this;
+    out.value=text; out.style.display='block';
+    function fb(){ out.focus(); out.select(); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){
+        btn.textContent='복사됨 ✓'; setTimeout(function(){btn.textContent='답변 복사';},1600);
+      }).catch(fb);
+    } else { fb(); }
+  });
+
+  document.getElementById('dlBtn').addEventListener('click',function(){
+    var text=compile();
+    var blob=new Blob([text],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url; a.download='나와_세상을_정의하기_자가진단.txt';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1500);
+  });
+
+  document.getElementById('resetBtn').addEventListener('click',function(){
+    if(!confirm('지금까지 입력한 답변을 모두 지울까요?')) return;
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    qs.forEach(function(q){
+      q.querySelectorAll('.opt.sel').forEach(function(b){b.classList.remove('sel');});
+      var f=q.querySelector('.txt'); if(f) f.value='';
+    });
+    document.getElementById('out').style.display='none';
+    updateProgress();
+  });
+
+  load(); updateProgress();
+})();
+</script>
+</body>
+</html>
