@@ -179,7 +179,7 @@ textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
 <div class="hero"><svg class="shards" viewBox="0 0 780 220" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"><polygon points="560,0 700,0 560,140" fill="#ffffff" opacity="0.06"/><polygon points="640,40 780,40 780,220 640,220" fill="#ffffff" opacity="0.05"/><polygon points="700,0 740,0 700,80" fill="#ffffff" opacity="0.08"/></svg><h1>나와 세상을<br>정의하기</h1></div>
 <div class="legend"><span class="tag tag-mc">객관식</span><span class="tag tag-multi">복수선택</span><span class="tag tag-rank">순위 선택</span><span class="tag tag-short">단답</span><span class="tag tag-long">장답</span></div>
 <section class="sec"><div class="sec-h"><span class="sec-n">0</span><h2 class="sec-t">인생 그래프</h2></div><p class="sec-d">0세부터 지금까지 한 해씩 떠올려보고, 마지막에 ‘얼마나 좋았는지’ 점수를 매겨 그래프로 그려보기.</p></section>
-<div class="lg"><div class="lg-birth" id="lg-birth-row"><span class="lg-label">태어난 해</span><input type="number" id="lg-birth" min="1940" max="2026" placeholder="예: 1998" class="lg-birth-input"><button type="button" class="btn btn-primary" id="lg-start">시작하기</button></div><div class="lg-step" id="lg-step" style="display:none"><div class="lg-step-head"><span class="lg-step-year" id="lg-step-year"></span><span class="lg-step-prog" id="lg-step-prog"></span></div><input class="tl-event" id="step-event" type="text" placeholder="그 해 있었던 일 (기억나는 대로)"><div class="lg-step-fields"><input class="tl-event" id="step-job" type="text" placeholder="직업·소속 (예: 유치원생, ○○대 학부생)"><input class="tl-event" id="step-region" type="text" placeholder="활동 지역 (예: 서울 강남, 대전)"></div><p class="lg-step-hint">점수는 맨 끝에 한꺼번에 매겨요. 지금은 그 해의 일·직업·지역만. (기억 안 나면 비우고 넘어가도 돼)</p><div class="lg-step-nav"><button type="button" class="btn btn-ghost" id="step-prev">← 이전</button><button type="button" class="btn" id="step-skip">전체 목록으로</button><button type="button" class="btn btn-primary" id="step-next">다음 해 →</button></div></div><div class="lg-score" id="lg-score" style="display:none"><p class="lg-score-intro">이제 각 해가 <b>얼마나 좋았는지</b> 점수를 매겨보자. (−100 ~ +100, 기억 안 나면 0)</p><div class="lg-timeline" id="lg-timeline"></div><div class="lg-chart" id="lg-chart"><div class="lg-chart-head"><span class="lg-chart-title">인생 그래프</span><span class="lg-chart-sub">세로축 = 그 해가 얼마나 좋았는지 (−100 ~ +100)</span></div><div id="lg-chart-svg"></div><div id="lg-events" class="lg-events"></div></div><div class="lg-region-hist" id="lg-region-hist"></div></div></div>
+<div class="lg"><div class="lg-birth" id="lg-birth-row"><span class="lg-label">태어난 해</span><input type="number" id="lg-birth" min="1940" max="2026" placeholder="예: 1998" class="lg-birth-input"><button type="button" class="btn btn-primary" id="lg-start">시작하기</button></div><div class="lg-step" id="lg-step" style="display:none"><div class="lg-step-head"><span class="lg-step-year" id="lg-step-year"></span><span class="lg-step-prog" id="lg-step-prog"></span></div><input class="tl-event" id="step-event" type="text" placeholder="그 해 있었던 일 (기억나는 대로)"><div class="lg-step-fields"><input class="tl-event" id="step-job" list="lg-joblist" type="text" placeholder="직업·소속 (예: 유치원생, ○○대 학부생)"><input class="tl-event" id="step-region" list="lg-regionlist" type="text" placeholder="활동 지역 (예: 서울 강남, 대전)"></div><p class="lg-step-hint">점수는 맨 끝에 한꺼번에 매겨요. 지금은 그 해의 일·직업·지역만. (기억 안 나면 비우고 넘어가도 돼)</p><div class="lg-step-nav"><button type="button" class="btn btn-ghost" id="step-prev">← 이전</button><button type="button" class="btn" id="step-skip">전체 목록으로</button><button type="button" class="btn btn-primary" id="step-next">다음 해 →</button></div></div><div class="lg-score" id="lg-score" style="display:none"><p class="lg-score-intro">이제 각 해가 <b>얼마나 좋았는지</b> 점수를 매겨보자. (−100 ~ +100, 기억 안 나면 0)</p><div class="lg-timeline" id="lg-timeline"></div><div class="lg-chart" id="lg-chart"><div class="lg-chart-head"><span class="lg-chart-title">인생 그래프</span><span class="lg-chart-sub">세로축 = 그 해가 얼마나 좋았는지 (−100 ~ +100) · 점을 위아래로 끌어서 조정</span></div><div id="lg-chart-svg"></div><div id="lg-events" class="lg-events"></div></div><div class="lg-region-hist" id="lg-region-hist"></div></div><datalist id="lg-joblist"></datalist><datalist id="lg-regionlist"></datalist></div>
 <p class="grp">그래프를 돌아보며</p>
 <div class="q" data-id="q1" data-type="short" data-sec="인생 그래프" data-grp="그래프를 돌아보며" data-q="그래프에서 가장 높았던 해와, 그 이유는?"><div class="q-top"><span class="q-l">그래프에서 가장 높았던 해와, 그 이유는?</span><span class="tag tag-short">단답</span></div><input class="txt" type="text" placeholder=""></div>
 <div class="q" data-id="q2" data-type="long" data-sec="인생 그래프" data-grp="그래프를 돌아보며" data-q="가장 낮았던 해, 그리고 거기서 배운 것은?"><div class="q-top"><span class="q-l">가장 낮았던 해, 그리고 거기서 배운 것은?</span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder=""></textarea></div>
@@ -190,7 +190,7 @@ textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
 <div class="q" data-id="q5" data-type="rank" data-sec="‘나’를 정의하기" data-grp="가치관 — 무엇을 가장 소중히 여기는가" data-q="인생에서 소중한 가치를 순서대로 놓는다면?"><div class="q-top"><span class="q-l">인생에서 소중한 가치를 순서대로 놓는다면?</span><span class="tag tag-rank">순위 선택</span></div><p class="rank-hint">중요한 순서대로 누르면 번호가 매겨져요. 다시 누르면 해제. 직접 추가한 것도 똑같이 순위를 매길 수 있어요.</p><div class="opts" data-multi="false"><button type="button" class="opt" data-v="사랑">사랑</button><button type="button" class="opt" data-v="우정">우정</button><button type="button" class="opt" data-v="가족">가족</button><button type="button" class="opt" data-v="건강">건강</button><button type="button" class="opt" data-v="자유">자유</button><button type="button" class="opt" data-v="성장">성장</button><button type="button" class="opt" data-v="성취">성취</button><button type="button" class="opt" data-v="돈">돈</button><button type="button" class="opt" data-v="명예">명예</button><button type="button" class="opt" data-v="재미">재미</button><button type="button" class="opt" data-v="안정">안정</button><button type="button" class="opt" data-v="신념·영성">신념·영성</button></div><div class="rank-add"><input class="rank-add-input" type="text" placeholder="직접 추가 — 입력하고 Enter"><button type="button" class="rank-add-btn">+ 추가</button></div></div>
 <div class="q" data-id="q6" data-type="rank" data-sec="‘나’를 정의하기" data-grp="가치관 — 무엇을 가장 소중히 여기는가" data-q="일·프로젝트에서 우선하는 가치는?"><div class="q-top"><span class="q-l">일·프로젝트에서 우선하는 가치는?</span><span class="tag tag-rank">순위 선택</span></div><p class="rank-hint">중요한 순서대로 누르면 번호가 매겨져요. 다시 누르면 해제. 직접 추가한 것도 똑같이 순위를 매길 수 있어요.</p><div class="opts" data-multi="false"><button type="button" class="opt" data-v="정확성">정확성</button><button type="button" class="opt" data-v="효율">효율</button><button type="button" class="opt" data-v="공정성">공정성</button><button type="button" class="opt" data-v="새로움">새로움</button><button type="button" class="opt" data-v="안정성">안정성</button><button type="button" class="opt" data-v="영향력">영향력</button><button type="button" class="opt" data-v="속도">속도</button><button type="button" class="opt" data-v="완성도">완성도</button><button type="button" class="opt" data-v="협업">협업</button><button type="button" class="opt" data-v="사용자 가치">사용자 가치</button></div><div class="rank-add"><input class="rank-add-input" type="text" placeholder="직접 추가 — 입력하고 Enter"><button type="button" class="rank-add-btn">+ 추가</button></div></div>
 <div class="q" data-id="q7" data-type="multi" data-sec="‘나’를 정의하기" data-grp="가치관 — 무엇을 가장 소중히 여기는가" data-q="남들이 다 괜찮다 해도 내가 못 넘기는 건?"><div class="q-top"><span class="q-l">남들이 다 괜찮다 해도 내가 못 넘기는 건?</span><span class="tag tag-multi">복수선택</span></div><div class="opts" data-multi="true"><button type="button" class="opt" data-v="부정직">부정직</button><button type="button" class="opt" data-v="비효율">비효율</button><button type="button" class="opt" data-v="불공정">불공정</button><button type="button" class="opt" data-v="지루함">지루함</button><button type="button" class="opt" data-v="무책임">무책임</button><button type="button" class="opt" data-v="무례함">무례함</button><button type="button" class="opt" data-v="위선">위선</button><button type="button" class="opt" data-v="권위주의">권위주의</button><button type="button" class="opt" data-v="약속 안 지킴">약속 안 지킴</button></div><input class="txt-extra" type="text" placeholder="직접 입력 — 보기에 없거나 덧붙이고 싶으면"></div>
-<div class="q" data-id="q8" data-type="long" data-sec="‘나’를 정의하기" data-grp="가치관 — 무엇을 가장 소중히 여기는가" data-q="절대 타협하고 싶지 않은 한 가지와 그 이유는?"><div class="q-top"><span class="q-l">절대 타협하고 싶지 않은 한 가지와 그 이유는?</span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder="무엇을, 왜"></textarea></div>
+<div class="q" data-id="q8" data-type="long" data-sec="‘나’를 정의하기" data-grp="가치관 — 무엇을 가장 소중히 여기는가" data-q="이들 중 절대 타협하고 싶지 않은 한 가지와 그 이유는?"><div class="q-top"><span class="q-l">이들 중 절대 타협하고 싶지 않은 한 가지와 그 이유는?</span><span class="tag tag-long">장답</span></div><textarea class="txt" rows="3" placeholder="무엇을, 왜"></textarea></div>
 <p class="grp">관심·끌림 — 무엇에 시간을 쓰게 되는가</p>
 <div class="q" data-id="q9" data-type="short" data-sec="‘나’를 정의하기" data-grp="관심·끌림 — 무엇에 시간을 쓰게 되는가" data-q="시간 가는 줄 모르고 파고드는 주제는?"><div class="q-top"><span class="q-l">시간 가는 줄 모르고 파고드는 주제는?</span><span class="tag tag-short">단답</span></div><input class="txt" type="text" placeholder=""></div>
 <div class="q" data-id="q10" data-type="multi" data-sec="‘나’를 정의하기" data-grp="관심·끌림 — 무엇에 시간을 쓰게 되는가" data-q="시키지 않아도 자꾸 찾아보게 되는 분야는?"><div class="q-top"><span class="q-l">시키지 않아도 자꾸 찾아보게 되는 분야는?</span><span class="tag tag-multi">복수선택</span></div><div class="opts" data-multi="true"><button type="button" class="opt" data-v="기술·코딩">기술·코딩</button><button type="button" class="opt" data-v="사람·심리">사람·심리</button><button type="button" class="opt" data-v="비즈니스·돈">비즈니스·돈</button><button type="button" class="opt" data-v="예술·디자인">예술·디자인</button><button type="button" class="opt" data-v="사회·정치">사회·정치</button><button type="button" class="opt" data-v="과학·자연">과학·자연</button><button type="button" class="opt" data-v="건강·운동">건강·운동</button><button type="button" class="opt" data-v="역사·인문">역사·인문</button><button type="button" class="opt" data-v="게임">게임</button><button type="button" class="opt" data-v="여행">여행</button></div><input class="txt-extra" type="text" placeholder="직접 입력 — 보기에 없거나 덧붙이고 싶으면"></div>
@@ -282,6 +282,13 @@ textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
   function isChoice(q){ var t=q.dataset.type; return t==='mc'||t==='multi'||t==='rank'; }
   function extraOf(q){ var e=q.querySelector('.txt-extra'); return e?e.value:''; }
   function yd(y){ if(!yearData[y]) yearData[y]={e:'',j:'',r:'',s:0}; return yearData[y]; }
+  function refreshTags(){
+    var jobs={}, regs={};
+    for(var k in yearData){ var d=yearData[k]; if(!d) continue; var j=(d.j||'').trim(); if(j) jobs[j]=1; var r=(d.r||'').trim(); if(r) regs[r]=1; }
+    var jl=document.getElementById('lg-joblist'), rl=document.getElementById('lg-regionlist');
+    function fill(el,obj){ if(!el) return; var h=''; for(var v in obj){ h+='<option value="'+esc(v)+'"></option>'; } el.innerHTML=h; }
+    fill(jl,jobs); fill(rl,regs);
+  }
   function buildYears(){ var by=parseInt(birthInput.value,10); lgYears=[]; if(by&&by>=1940&&by<=2026){ for(var y=by;y<=2026;y++) lgYears.push(y); } return by; }
 
   // ---- choice questions ----
@@ -356,6 +363,7 @@ textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
     sYear.textContent=y+'년 · '+(y-by)+'세'; sProg.textContent=(lgIdx+1)+' / '+lgYears.length;
     sEvent.value=d.e||''; sJob.value=d.j||''; sRegion.value=d.r||'';
     sPrev.disabled=(lgIdx===0); sNext.textContent=(lgIdx===lgYears.length-1)?'완료 · 점수 매기기 →':'다음 해 →';
+    refreshTags();
     sEvent.focus();
   }
   function stepSave(){ var d=yd(lgYears[lgIdx]); d.e=sEvent.value; d.j=sJob.value; d.r=sRegion.value; }
@@ -363,7 +371,7 @@ textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
   function stepPrev(){ stepSave(); if(lgIdx>0){ lgIdx--; renderStep(); save(); } }
 
   // ---- Phase B: scoring + chart + region history ----
-  function enterScore(){ stepWrap.style.display='none'; birthRow.style.display='none'; scoreWrap.style.display=''; buildScoreList(); renderChart(); renderTracks(); save(); }
+  function enterScore(){ stepWrap.style.display='none'; birthRow.style.display='none'; scoreWrap.style.display=''; buildScoreList(); renderChart(); renderTracks(); refreshTags(); save(); }
   function buildScoreList(){
     if(!lgYears.length) buildYears();
     if(!lgYears.length){ tlWrap.innerHTML='<p class="tl-empty">먼저 태어난 해를 입력해 주세요.</p>'; return; }
@@ -373,7 +381,7 @@ textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
       rows+='<div class="tl-row" data-year="'+y+'"><div class="tl-year"><span class="tl-y">'+y+'</span><span class="tl-age">'+(y-by)+'세</span></div>'
         +'<div class="tl-mid">'
         +'<input class="tl-event" data-f="e" type="text" placeholder="그 해 있었던 일" value="'+esc(d.e)+'">'
-        +'<div class="tl-jr"><input class="tl-event tl-small" data-f="j" type="text" placeholder="직업·소속" value="'+esc(d.j)+'"><input class="tl-event tl-small" data-f="r" type="text" placeholder="활동 지역" value="'+esc(d.r)+'"></div>'
+        +'<div class="tl-jr"><input class="tl-event tl-small" data-f="j" list="lg-joblist" type="text" placeholder="직업·소속" value="'+esc(d.j)+'"><input class="tl-event tl-small" data-f="r" list="lg-regionlist" type="text" placeholder="활동 지역" value="'+esc(d.r)+'"></div>'
         +'<div class="tl-slider"><input class="tl-range" type="range" min="-100" max="100" step="5" value="'+(d.s||0)+'"><span class="tl-val"></span></div>'
         +'</div></div>';
     });
@@ -384,7 +392,7 @@ textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
     tlWrap.querySelectorAll('.tl-row').forEach(function(row){
       var y=row.dataset.year;
       row.querySelectorAll('.tl-event').forEach(function(inp){
-        inp.addEventListener('input',function(){ var d=yd(y); d[inp.dataset.f]=inp.value; if(inp.dataset.f==='r'||inp.dataset.f==='j') renderTracks(); if(inp.dataset.f==='e') renderChart(); scheduleSave(); });
+        inp.addEventListener('input',function(){ var d=yd(y); d[inp.dataset.f]=inp.value; if(inp.dataset.f==='r'||inp.dataset.f==='j'){ renderTracks(); refreshTags(); } if(inp.dataset.f==='e') renderChart(); scheduleSave(); });
       });
       var rg=row.querySelector('.tl-range'), vl=row.querySelector('.tl-val');
       colorVal(vl, parseInt(rg.value,10));
@@ -415,7 +423,8 @@ textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
       var ly=above?py-10:py+17; if(ly<12) ly=12; if(ly>H-padB-4) ly=H-padB-4;
       ev+='<g><title>'+esc(yv+' · '+full)+'</title><circle cx="'+px+'" cy="'+py+'" r="4.5" fill="#fff" stroke="#3345D3" stroke-width="2"/><text x="'+px+'" y="'+ly+'" text-anchor="middle" font-size="9.5" fill="#3C3F4A">'+esc(label)+'</text></g>';
     });
-    chartSvg.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="인생 만족도 그래프">'+grid+area+line+dots+ev+xlab+'</svg>';
+    var cdots=years.map(function(yv,i){ var s=(yearData[yv]&&yearData[yv].s)||0; return '<circle class="cdot" data-year="'+yv+'" cx="'+X(i)+'" cy="'+Y(s)+'" r="11" fill="transparent" pointer-events="all" style="cursor:ns-resize;touch-action:none"/>'; }).join('');
+    chartSvg.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="인생 만족도 그래프">'+grid+area+line+dots+ev+cdots+xlab+'</svg>';
     var listEl=document.getElementById('lg-events');
     if(listEl){ var items=[]; years.forEach(function(yv){ var d=yearData[yv]; if(d&&(d.e||'').trim()){ var s=d.s||0; var cl=s>0?'pos':(s<0?'neg':'zero'); items.push('<span class="ev-chip"><b>'+yv+'</b> '+esc(d.e.trim())+' <i class="'+cl+'">'+(s>0?'+'+s:s)+'</i></span>'); } }); listEl.innerHTML=items.length?('<div class="lg-events-h">기록한 이벤트</div><div class="ev-wrap">'+items.join('')+'</div>'):''; }
   }
@@ -488,6 +497,9 @@ textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
   sPrev.addEventListener('click', stepPrev);
   sSkip.addEventListener('click', function(){ stepSave(); enterScore(); });
   [sEvent,sJob,sRegion].forEach(function(inp){ inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); stepNext(); } }); });
+  sEvent.addEventListener('input',function(){ if(lgYears.length) yd(lgYears[lgIdx]).e=sEvent.value; scheduleSave(); });
+  sJob.addEventListener('input',function(){ if(lgYears.length){ yd(lgYears[lgIdx]).j=sJob.value; refreshTags(); } scheduleSave(); });
+  sRegion.addEventListener('input',function(){ if(lgYears.length){ yd(lgYears[lgIdx]).r=sRegion.value; refreshTags(); } scheduleSave(); });
   birthInput.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); startLife(); } });
 
   function compile(){
@@ -512,6 +524,25 @@ textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
     });
     return lines.join('\n');
   }
+
+  var dragYear=null;
+  function scoreFromClientY(cy){
+    var svg=chartSvg.querySelector('svg'); if(!svg) return null;
+    var rect=svg.getBoundingClientRect(); if(!rect.height) return null;
+    var sy=(cy-rect.top)/rect.height*300, s=(1-(sy-18)/252)*200-100;
+    s=Math.round(s/5)*5; if(s>100)s=100; if(s<-100)s=-100; return s;
+  }
+  function setScore(y,s){
+    yd(y).s=s;
+    var row=tlWrap.querySelector('.tl-row[data-year="'+y+'"]');
+    if(row){ var rg=row.querySelector('.tl-range'), vl=row.querySelector('.tl-val'); if(rg) rg.value=s; if(vl) colorVal(vl,s); }
+    renderChart();
+  }
+  chartSvg.addEventListener('pointerdown',function(e){
+    var t=e.target; if(t&&t.getAttribute&&t.getAttribute('class')==='cdot'){ dragYear=t.getAttribute('data-year'); e.preventDefault(); var s=scoreFromClientY(e.clientY); if(s!==null) setScore(dragYear,s); }
+  });
+  document.addEventListener('pointermove',function(e){ if(dragYear===null) return; var s=scoreFromClientY(e.clientY); if(s!==null) setScore(dragYear,s); e.preventDefault(); });
+  document.addEventListener('pointerup',function(){ if(dragYear!==null){ dragYear=null; save(); } });
 
   document.getElementById('copyBtn').addEventListener('click',function(){
     var text=compile(),out=document.getElementById('out'),btn=this; out.value=text; out.style.display='block';
@@ -539,6 +570,7 @@ textarea.txt{resize:vertical;min-height:74px;line-height:1.55}
       if(data._birth){ birthInput.value=data._birth; buildYears(); if(lgYears.length) enterScore(); }
       qs.forEach(function(q){ if(data[q.dataset.id]!==undefined) setAnswer(q,data[q.dataset.id]); });
     }catch(e){}
+    refreshTags();
     updateProgress();
   }
   load();
